@@ -4,7 +4,8 @@ ENV NODE_ENV=production \
     PLAYWRIGHT_BROWSERS_PATH=/opt/browsers \
     LEADSCRAPPY_STATE=/data/agent.json
 WORKDIR /agent
-RUN npm init -y >/dev/null \
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+ && npm init -y >/dev/null \
  && npm install --omit=dev --no-audit --no-fund playwright@1.63.0 \
  && npx playwright install --with-deps --only-shell chromium \
  && rm -rf /var/lib/apt/lists/* /root/.npm /tmp/* \
